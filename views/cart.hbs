@@ -1,0 +1,250 @@
+{{!< main}}
+
+<!-- Cart Header -->
+<section class="cart-header bg-primary text-white py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold mb-0">
+                    <i class="bi bi-cart3"></i> Tu Carrito de Compras
+                </h1>
+                <p class="lead mb-0">Revisa y completa tu pedido</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/static/js/cart.js"></script>
+
+<!-- Alert Messages -->
+{{#if msg}}
+    <div class="container mt-4">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <i class="bi bi-info-circle"></i> {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+{{/if}}
+
+<!-- Cart Content -->
+<section class="cart-content py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Cart Items -->
+            <div class="col-12 col-lg-8 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                        <h3 class="mb-0">
+                            <i class="bi bi-bag"></i> Productos en el Carrito
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="cartItems">
+                            {{#if cartItems.length}}
+                                <!-- Cart items will be dynamically loaded here -->
+                                <div class="text-center py-5">
+                                    <i class="bi bi-cart-check display-1 text-success"></i>
+                                    <h4 class="mt-3 text-success">Productos en tu carrito</h4>
+                                    <p class="text-muted">Revisa tus productos seleccionados</p>
+                                </div>
+                            {{else}}
+                                <!-- Cart items will be dynamically loaded here -->
+                                <div class="text-center py-5">
+                                    <i class="bi bi-cart-x display-1 text-muted"></i>
+                                    <h4 class="mt-3 text-muted">Tu carrito está vacío</h4>
+                                    <p class="text-muted">Agrega algunos productos para comenzar</p>
+                                    <a href="/api/realTimeProducts" class="btn btn-primary">
+                                        <i class="bi bi-shop"></i> Ir a la Tienda
+                                    </a>
+                                </div>
+                            {{/if}}
+                        </div>
+                        
+                        <!-- Available Products Section -->
+                        {{#if products.length}}
+                        <div class="mt-4">
+                            <h4 class="mb-3">
+                                <i class="bi bi-grid"></i> Productos Disponibles
+                            </h4>
+                            <div class="row">
+                                {{#each products}}
+                                <div class="col-12 col-md-6 col-lg-4 mb-3">
+                                    <div class="card h-100 shadow-sm">
+                                        <img src="{{this.thumbnails}}" class="card-img-top" alt="{{this.title}}" 
+                                             style="height: 200px; object-fit: cover;" onerror="this.src='/static/img/default-product.jpg'">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{this.title}}</h5>
+                                            <p class="card-text text-muted small">{{this.description}}</p>
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="badge bg-primary">${{this.price}}</span>
+                                                <span class="badge bg-secondary">Stock: {{this.stock}}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="badge bg-{{#if this.status}}success{{else}}danger{{/if}}">
+                                                    {{#if this.status}}Disponible{{else}}No disponible{{/if}}
+                                                </span>
+                                                {{#if this.status}}
+                                                <button class="btn btn-sm btn-outline-primary add-to-cart-btn" 
+                                                        data-product-id="{{this._id}}" 
+                                                        data-product-title="{{this.title}}"
+                                                        data-product-price="{{this.price}}">
+                                                    <i class="bi bi-cart-plus"></i> Agregar
+                                                </button>
+                                                {{else}}
+                                                <button class="btn btn-sm btn-outline-secondary" disabled>
+                                                    <i class="bi bi-cart-x"></i> No disponible
+                                                </button>
+                                                {{/if}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        {{else}}
+                        <div class="text-center py-4">
+                            <i class="bi bi-exclamation-triangle display-4 text-warning"></i>
+                            <h5 class="mt-3 text-warning">No hay productos disponibles</h5>
+                            <p class="text-muted">Intenta más tarde</p>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Checkout Form -->
+            <div class="col-12 col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0">
+                            <i class="bi bi-credit-card"></i> Finalizar Compra
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="checkoutForm" action="/api/carts/checkout" method="POST">
+                            <div class="mb-3">
+                                <label for="customerName" class="form-label">
+                                    <i class="bi bi-person"></i> Nombre Completo
+                                </label>
+                                <input type="text" class="form-control" id="customerName" name="customerName" 
+                                       placeholder="Ingresa tu nombre completo" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="customerEmail" class="form-label">
+                                    <i class="bi bi-envelope"></i> Email
+                                </label>
+                                <input type="email" class="form-control" id="customerEmail" name="customerEmail" 
+                                       placeholder="tu@email.com" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="customerPhone" class="form-label">
+                                    <i class="bi bi-telephone"></i> Teléfono
+                                </label>
+                                <input type="tel" class="form-control" id="customerPhone" name="customerPhone" 
+                                       placeholder="+54 9 11 1234-5678" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="shippingAddress" class="form-label">
+                                    <i class="bi bi-geo-alt"></i> Dirección de Envío
+                                </label>
+                                <textarea class="form-control" id="shippingAddress" name="shippingAddress" 
+                                          rows="3" placeholder="Ingresa tu dirección completa" required></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="paymentMethod" class="form-label">
+                                    <i class="bi bi-credit-card"></i> Método de Pago
+                                </label>
+                                <select class="form-select" id="paymentMethod" name="paymentMethod" required>
+                                    <option value="">Selecciona un método de pago</option>
+                                    <option value="credit">Tarjeta de Crédito</option>
+                                    <option value="debit">Tarjeta de Débito</option>
+                                    <option value="transfer">Transferencia Bancaria</option>
+                                    <option value="cash">Efectivo</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="notes" class="form-label">
+                                    <i class="bi bi-chat-text"></i> Notas Adicionales
+                                </label>
+                                <textarea class="form-control" id="notes" name="notes" 
+                                          rows="2" placeholder="Instrucciones especiales para el envío..."></textarea>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="bi bi-check-circle"></i> Confirmar Pedido
+                                </button>
+                                <a href="/realTimeProducts" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-left"></i> Seguir Comprando
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="card mt-3 shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-receipt"></i> Resumen del Pedido
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal:</span>
+                            <span class="fw-bold">$0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Envío:</span>
+                            <span class="fw-bold">$0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Impuestos:</span>
+                            <span class="fw-bold">$0.00</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <span class="fs-5 fw-bold">Total:</span>
+                            <span class="fs-5 fw-bold text-primary">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Shipping Info -->
+<section class="shipping-info bg-light py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4 mb-3">
+                <div class="text-center">
+                    <i class="bi bi-truck text-primary fs-1"></i>
+                    <h5 class="mt-2">Envío Gratis</h5>
+                    <small class="text-muted">En compras superiores a $50</small>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="text-center">
+                    <i class="bi bi-clock text-success fs-1"></i>
+                    <h5 class="mt-2">Entrega Rápida</h5>
+                    <small class="text-muted">1-3 días hábiles</small>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 mb-3">
+                <div class="text-center">
+                    <i class="bi bi-shield-check text-info fs-1"></i>
+                    <h5 class="mt-2">Compra Segura</h5>
+                    <small class="text-muted">Pago seguro y garantizado</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

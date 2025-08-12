@@ -1,0 +1,120 @@
+{{!< main}}
+<div class="container-fluid">
+    <!-- Formulario de carga -->
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0"><i class="bi bi-plus-circle"></i> Cargar Producto</h2>
+                </div>
+                <div class="card-body">
+                    {{#if msg}}
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            {{msg}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {{/if}}
+                    
+                    <form action="/api/realTimeProducts" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="title" class="form-label">Título</label>
+                                <input type="text" class="form-control" name="title" required/>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="code" class="form-label">Código</label>
+                                <input type="text" class="form-control" name="code" required/>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripción</label>
+                            <textarea class="form-control" name="description" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="price" class="form-label">Precio</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" name="price" step="0.01" required/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="stock" class="form-label">Stock</label>
+                                <input type="number" class="form-control" name="stock" required/>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="status" class="form-label">Estado</label>
+                                <select class="form-select" name="status" required>
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="category" class="form-label">Categoría</label>
+                                <input type="text" class="form-control" name="category" required/>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <label for="image" class="form-label">Imagen</label>
+                                <input type="file" class="form-control" name="image" accept="image/*" required/>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-upload"></i> Subir Producto
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Lista de productos -->
+        <div class="col-12 col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h2 class="mb-0"><i class="bi bi-list-ul"></i> Lista de Productos</h2>
+                </div>
+                <div class="card-body">
+                    <div id="productsDiv" class="row">
+                        {{#each products}}
+                            <div class="col-12 col-sm-6 col-lg-4 mb-3">
+                                <div class="card h-100 shadow-sm">
+                                    <img src="{{this.thumbnails}}" class="card-img-top" alt="{{this.title}}" 
+                                         style="height: 200px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{this.title}}</h5>
+                                        <p class="card-text text-muted small">{{this.description}}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="badge bg-primary">${{this.price}}</span>
+                                            <span class="badge bg-secondary">Stock: {{this.stock}}</span>
+                                        </div>
+                                        <div class="mt-2">
+                                            <span class="badge bg-{{#if this.status}}success{{else}}danger{{/if}}">
+                                                {{#if this.status}}Activo{{else}}Inactivo{{/if}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{else}}
+                            <div class="col-12">
+                                <div class="alert alert-info text-center">
+                                    <i class="bi bi-info-circle"></i> No hay productos cargados
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/realTimeProducts.js"></script>
+<script src="/socket.io/socket.io.js"></script>

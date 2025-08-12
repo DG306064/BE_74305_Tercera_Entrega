@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "title": "iPhone 15 Pro Max",
+    "description": "Smartphone Apple con chip A17 Pro, 256GB, cámara triple de 48MP, pantalla Super Retina XDR de 6.7 pulgadas",
+    "code": "IPH15PM001",
+    "price": 1299999,
+    "status": true,
+    "stock": 15,
+    "category": "Smartphones",
+    "thumbnails": "https://ejemplo.com/iphone15-pro-max.jpg"
+  },
+  {
+    "id": 2,
+    "title": "iPhone",
+    "description": "Smartphone Apple con chip A17 Pro, 256GB, cámara triple de 48MP, pantalla Super Retina XDR de 6.7 pulgadas",
+    "code": "IPH15PM001",
+    "price": 1299999,
+    "status": true,
+    "stock": 5,
+    "category": "Smartphones",
+    "thumbnails": "https://ejemplo.com/iphone15-pro-max.jpg"
+  },
+  {
+    "id": 3,
+    "title": "iPhone",
+    "description": "Smartphone Apple con chip A17 Pro, 256GB, cámara triple de 48MP, pantalla Super Retina XDR de 6.7 pulgadas",
+    "code": "IPH15PM001",
+    "price": 1299999,
+    "status": true,
+    "stock": 5,
+    "category": "Smartphones",
+    "thumbnails": "https://ejemplo.com/iphone15-pro-max.jpg"
+  },
+  {
+    "id": 4,
+    "title": "iPhone 15 Pro Max",
+    "description": "Smartphone Apple con chip A17 Pro, 256GB, cámara triple de 48MP, pantalla Super Retina XDR de 6.7 pulgadas",
+    "code": "IPH15PM001",
+    "price": 1299999,
+    "status": true,
+    "stock": 15,
+    "category": "Smartphones",
+    "thumbnails": "https://ejemplo.com/iphone15-pro-max.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Nokia 1100",
+    "description": "Telefono celular Nokia 1100",
+    "code": "Nokia1100",
+    "price": 120,
+    "status": "true",
+    "stock": 10,
+    "category": "Telefonos celulares",
+    "thumbnails": "static/img/name.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Nokia 1100",
+    "description": "Telefono celular Nokia 1100",
+    "code": "Nokia1100",
+    "price": 120,
+    "status": "true",
+    "stock": 10,
+    "category": "Telefonos celulares",
+    "thumbnails": "static/img/name.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Nokia 2200",
+    "description": "Hoy",
+    "code": "Nokia2200",
+    "price": 111,
+    "status": "true",
+    "stock": 5,
+    "category": "Telefonos celulares",
+    "thumbnails": "static/img/name.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Nokia 3300",
+    "description": "Ayer",
+    "code": "Nokia3300",
+    "price": 111,
+    "status": "false",
+    "stock": 7,
+    "category": "Telefonos celulares",
+    "thumbnails": "static/img/image-1753647734486-837764632.jpg"
+  },
+  {
+    "id": 9,
+    "title": "Nokia 40",
+    "description": "JJJJ",
+    "code": "Nokia40",
+    "price": 1000,
+    "status": true,
+    "stock": 10,
+    "category": "Telefonos celulares",
+    "thumbnails": "/static/img/image-1753649024642-558408522.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Nokia 50",
+    "description": "dfwefdfsdf",
+    "code": "Nokia50",
+    "price": 500,
+    "status": true,
+    "stock": 10,
+    "category": "Telefonos celulares",
+    "thumbnails": "/static/img/image-1753649068438-989813544.jpg"
+  }
+]
