@@ -23,9 +23,6 @@
 │   ├── home.router.js
 │   ├── realTimeProduts.js
 │   └── cart.router.js
-├── /services
-│   ├── cartsManager.js
-│   └── productsManager.js
 └── /views
     ├── /layouts
     │   └── main.hbs
