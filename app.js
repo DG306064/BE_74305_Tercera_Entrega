@@ -7,7 +7,6 @@ import { Server } from 'socket.io';
 import { connectToMongoDB } from './config/db/connect.config.js';
 import homeRouter from './routes/home.router.js';
 import cartsRouter from './routes/carts.router.js';
-import productsRouter from './routes/products.router.js';
 import realTimeProductsRouter from './routes/realTimeProducts.router.js';
 
 
@@ -40,9 +39,8 @@ app.use('/sweetalert2', express.static(path.join(__dirname, 'node_modules/sweeta
 
 /** Routers  */
 app.use(('/', homeRouter));
-app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
-app.use('/realTimeProducts', realTimeProductsRouter)
+app.use('/api/realTimeProducts', realTimeProductsRouter)
 
 
 /** Seteo de Error 404 */
